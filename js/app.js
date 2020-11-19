@@ -27,9 +27,6 @@ const sections = document.getElementsByTagName("section");
  *
 */
 
-for (let i = 0; i < allAnchor.length; i++) {
-    allAnchor.addEventListener("click", (e) => e.preventDefault());
-}
 
 /**
  * End Helper Functions
@@ -44,7 +41,6 @@ function buildNav() {
     const ul = document.getElementById('navbar__list');
 
     for (let i = 0; i < sections.length; i++) {
-        console.log(sections[i]);
 
         const anchor = document.createElement('a');
         const anchorList = document.createElement('li');
@@ -57,14 +53,11 @@ function buildNav() {
 
         ul.appendChild(anchorList);
 
-        console.log(anchorList);
-        console.log(anchor);
-
     }
 
 }
 
-buildNav()
+
 
 
 // Add class 'active' to section when near top of viewport
@@ -72,6 +65,9 @@ buildNav()
 
 // Scroll to anchor ID using scrollTO event
 
+for (let i = 0; i < allAnchor.length; i++) {
+    allAnchor.addEventListener("click", (e) => e.preventDefault());
+}
 
 /**
  * End Main Functions
@@ -81,7 +77,26 @@ buildNav()
 
 // Build menu 
 
+buildNav()
+
 // Scroll to section on link click
+
+const upButton = document.getElementById("up-button");
+
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        upButton.style.display = "block";
+    } else {
+        upButton.style.display = "none";
+    }
+}
+
+upButton.addEventListener("click", () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+})
 
 // Set sections as active
 
