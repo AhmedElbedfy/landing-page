@@ -27,6 +27,47 @@ const allAnchor = document.getElementsByTagName("a"),
  *
 */
 
+// Add class 'active' to section when near top of viewport
+
+function hoverActiveSection() {
+    for (let i = 0; i < sections.length; i++) {
+
+        const anchor = allAnchor[i],
+            section = sections[i],
+            rect = section.getBoundingClientRect();
+
+        if (rect.top < 278 && rect.bottom > 255) {
+            section.classList.add("your-active-class");
+            anchor.classList.add("anchor-focus");
+        } else {
+            section.classList.remove("your-active-class");
+            anchor.classList.remove("anchor-focus");
+        }
+    }
+}
+
+// Stop links default action
+
+for (let i = 0; i < allAnchor.length; i++) {
+    allAnchor.addEventListener("click", (e) => e.preventDefault());
+}
+
+// Up Button Scroll to the top
+
+const upButton = document.getElementById("up-button");
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        upButton.style.display = "block";
+    } else {
+        upButton.style.display = "none";
+    }
+}
+
+upButton.addEventListener("click", () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+})
 
 /**
  * End Helper Functions
@@ -47,7 +88,6 @@ function buildNav() {
 
         anchor.textContent = "Section " + (i + 1);
         anchor.classList.add('menu__link');
-        anchor.id = "aSection" + (i + 1)
 
         // Scroll to section on link click
         anchor.setAttribute("href", "#section" + (i + 1))
@@ -60,37 +100,8 @@ function buildNav() {
 
 }
 
-
-
-
-// Add class 'active' to section when near top of viewport
-
-function activeSection() {
-    setTimeout(window.onscroll = () => { hoverActiveSection() }, 0)
-
-    function hoverActiveSection() {
-        for (let i = 0; i < sections.length; i++) {
-
-            const anchor = allAnchor[i],
-                section = sections[i],
-                rect = section.getBoundingClientRect();
-
-            if (rect.top < 278 && rect.bottom > 255) {
-                section.classList.add("your-active-class");
-                anchor.classList.add("anchor-focus");
-            } else {
-                section.classList.remove("your-active-class");
-                anchor.classList.remove("anchor-focus");
-            }
-        }
-    }
-}
-
 // Scroll to anchor ID using scrollTO event
 
-for (let i = 0; i < allAnchor.length; i++) {
-    allAnchor.addEventListener("click", (e) => e.preventDefault());
-}
 
 /**
  * End Main Functions
@@ -102,27 +113,14 @@ for (let i = 0; i < allAnchor.length; i++) {
 
 buildNav()
 
-
-// Up Button Scroll to the top
-
-const upButton = document.getElementById("up-button");
-
-window.onscroll = function () { scrollFunction() };
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        upButton.style.display = "block";
-    } else {
-        upButton.style.display = "none";
-    }
-}
-
-upButton.addEventListener("click", () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-})
-
 // Set sections as active
+setTimeout(window.onscroll = () => { hoverActiveSection(); scrollFunction(); }, 0)
 
-activeSection()
-
+// function hello() {
+//     window.onscroll = () => {
+//         nav = document.querySelector(".navbar__menu")
+//         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+//             nav.classList.add()
+//         }
+//     }
+// }
