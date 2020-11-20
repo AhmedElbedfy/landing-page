@@ -18,8 +18,8 @@
  *
 */
 
-const allAnchor = document.getElementsByTagName("a");
-const sections = document.getElementsByTagName("section");
+const allAnchor = document.getElementsByTagName("a"),
+    sections = document.getElementsByTagName("section");
 
 /**
  * End Global Variables
@@ -47,6 +47,9 @@ function buildNav() {
 
         anchor.textContent = "Section " + (i + 1);
         anchor.classList.add('menu__link');
+        anchor.id = "aSection" + (i + 1)
+
+        // Scroll to section on link click
         anchor.setAttribute("href", "#section" + (i + 1))
 
         anchorList.appendChild(anchor);
@@ -62,6 +65,36 @@ function buildNav() {
 
 // Add class 'active' to section when near top of viewport
 
+document.addEventListener('onscroll', function (event) {
+    var newWidth = window.innerWidth;
+    var newHeight = window.innerHeight;
+    console.log(event);
+    console.log(newWidth);
+    console.log(newHeight);
+
+});
+
+
+function activeSection() {
+    setTimeout(window.onscroll = () => { hoverActiveSection() }, 0)
+
+    function hoverActiveSection() {
+        for (let i = 0; i < sections.length; i++) {
+
+            const anchor = allAnchor[i],
+                section = sections[i],
+                rect = section.getBoundingClientRect();
+
+            if (rect.top < 278 && rect.bottom > 255) {
+                section.classList.add("your-active-class");
+                anchor.classList.add("anchor-focus");
+            } else {
+                section.classList.remove("your-active-class");
+                anchor.classList.remove("anchor-focus");
+            }
+        }
+    }
+}
 
 // Scroll to anchor ID using scrollTO event
 
@@ -79,7 +112,8 @@ for (let i = 0; i < allAnchor.length; i++) {
 
 buildNav()
 
-// Scroll to section on link click
+
+// Up Button Scroll to the top
 
 const upButton = document.getElementById("up-button");
 
@@ -100,4 +134,5 @@ upButton.addEventListener("click", () => {
 
 // Set sections as active
 
+activeSection()
 
