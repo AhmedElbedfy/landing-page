@@ -65,16 +65,6 @@ function buildNav() {
 
 // Add class 'active' to section when near top of viewport
 
-document.addEventListener('onscroll', function (event) {
-    var newWidth = window.innerWidth;
-    var newHeight = window.innerHeight;
-    console.log(event);
-    console.log(newWidth);
-    console.log(newHeight);
-
-});
-
-
 function activeSection() {
     setTimeout(window.onscroll = () => { hoverActiveSection() }, 0)
 
