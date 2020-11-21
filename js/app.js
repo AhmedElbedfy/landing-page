@@ -124,6 +124,23 @@ function hideNav() {
     }
 }
 
+// Collapse Section
+
+function collapseSection() {
+    const h2 = document.getElementsByTagName("h2");
+    const sectionsContent = document.querySelectorAll(".section-content");
+    for (let i = 0; i < h2.length; i++) {
+        const sectionContent = sectionsContent[i];
+        h2[i].addEventListener("click", () => {
+            if (sectionContent.style.display === "block") {
+                sectionContent.style.display = "none"
+            } else {
+                sectionContent.style.display = "block";
+            }
+        })
+    }
+}
+
 // Scroll to anchor ID using scrollTO event
 
 
@@ -132,6 +149,10 @@ function hideNav() {
  * Begin Events
  *
 */
+
+// Collapse Section
+
+collapseSection()
 
 // Build menu 
 
