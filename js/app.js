@@ -21,6 +21,8 @@
 const allAnchor = document.getElementsByTagName("a"),
     sections = document.getElementsByTagName("section");
 
+let userHasScrolled = false;
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -56,7 +58,7 @@ for (let i = 0; i < allAnchor.length; i++) {
 
 const upButton = document.getElementById("up-button");
 
-function scrollFunction() {
+function scrollButton() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         upButton.style.display = "block";
     } else {
@@ -90,7 +92,7 @@ function buildNav() {
         anchor.classList.add('menu__link');
 
         // Scroll to section on link click
-        anchor.setAttribute("href", "#section" + (i + 1))
+        anchor.setAttribute("href", "#section" + (i + 1));
 
         anchorList.appendChild(anchor);
 
@@ -98,6 +100,28 @@ function buildNav() {
 
     }
 
+}
+
+// Hide fixed navigation bar while not scrolling
+
+const nav = document.querySelector("nav");
+let displayNone;
+
+
+function ifScrolling() {
+    nav.style.display = "block";
+    displayNone = setTimeout(() => {
+        nav.style.display = "none"
+    }, 2000);
+}
+
+function hideNav() {
+    clearTimeout(displayNone);
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        ifScrolling();
+    } else {
+        nav.style.display = "block";
+    }
 }
 
 // Scroll to anchor ID using scrollTO event
@@ -111,16 +135,15 @@ function buildNav() {
 
 // Build menu 
 
-buildNav()
+window.onload = buildNav();
 
-// Set sections as active
-setTimeout(window.onscroll = () => { hoverActiveSection(); scrollFunction(); }, 0)
+// Detecting Scroll
 
-// function hello() {
-//     window.onscroll = () => {
-//         nav = document.querySelector(".navbar__menu")
-//         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-//             nav.classList.add()
-//         }
-//     }
-// }
+setTimeout(() => {
+    window.onscroll = () => {
+        userHasScrolled = true;
+        hoverActiveSection();
+        scrollButton();
+        hideNav();
+    }
+}, 0);
