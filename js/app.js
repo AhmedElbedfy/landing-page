@@ -27,6 +27,9 @@
  *  I read this page to see example of scroll to top button
  *  How To Create a Scroll To Top Button --> https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
  * 
+ *  I read this page to understand Element.scrollIntoView() method
+ *  Element.scrollIntoView() --> https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+ * 
 */
 
 /**
@@ -69,9 +72,6 @@ function buildNav() {
 
         anchor.textContent = "Section " + (i + 1);
         anchor.classList.add("menu__link");
-
-        // Scroll to section on link click
-        anchor.setAttribute("href", "#section" + (i + 1));
 
         anchorList.appendChild(anchor);
         fragment.appendChild(anchorList);
@@ -140,10 +140,17 @@ function hoverActiveSection() {
     }
 }
 
-// Stop links default action
+// Scroll to Selected Section using ScrollIntoView method & Stop links default action
 
-for (let i = 0; i < allAnchor.length; i++) {
-    allAnchor.addEventListener("click", (e) => e.preventDefault());
+function scrollTo() {
+    for (let i = 0; i < allAnchor.length; i++) {
+        allAnchor[i].addEventListener("click", (e) => {
+            e.preventDefault();
+            const section = "section" + (i + 1);
+            const selectedSection = document.getElementById(section);
+            selectedSection.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        });
+    }
 }
 
 // Up Button Scroll to the top
@@ -157,8 +164,8 @@ function scrollButton() {
 }
 
 upButton.addEventListener("click", () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    document.body.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    document.documentElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 })
 
 /**
@@ -173,7 +180,7 @@ collapseSection();
 
 // Build menu 
 
-window.onload = buildNav();
+window.onload = buildNav(), scrollTo();
 
 // Detecting Scroll
 

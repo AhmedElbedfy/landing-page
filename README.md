@@ -47,4 +47,6 @@ Functionality added
  
  3. I read this page to see example of scroll to top button.
  How To Create a Scroll To Top Button: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
- 
+
+4. I read this page to understand Element.scrollIntoView() method.
+Element.scrollIntoView(): https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView 
