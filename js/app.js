@@ -13,6 +13,22 @@
  *
 */
 
+/** 
+ *  ## Student Note
+ * 
+ *  ## I USE THIS PAGES IN ORDER TO COMPLATE THE PTOJECT
+ * 
+ *  I watch this video to understand how to determine if something in viewport or not
+ *  getBoundingClientRect() in JavaScript DOM --> https://www.youtube.com/watch?v=MKpZadkuT-0
+ *  
+ *  I read this page to understand onscroll event listener
+ *  onscroll Event --> https://www.w3schools.com/Jsref/event_onscroll.asp
+ *
+ *  I read this page to see example of scroll to top button
+ *  How To Create a Scroll To Top Button --> https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+ * 
+*/
+
 /**
  * Define Global Variables
  *

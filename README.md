@@ -5,6 +5,7 @@
 * [Description](#description)
 * [Instructions](#instructions)
 * [Function](#function)
+* [Student Note](#student-note)
 
 ## Description
 
@@ -33,3 +34,17 @@ Functionality added
 5. Add functionality to distinguish the section in view, And an active state to navigation items when a section is in the viewport.
 
 6. Add the functionality to scroll to sections.
+
+ ## Student Note
+ 
+ I USE THIS PAGES IN ORDER TO COMPLATE THE PTOJECT
+ 
+ 1. I watch this video to understand how to determine if something in viewport or not.
+ getBoundingClientRect() in JavaScript DOM: https://www.youtube.com/watch?v=MKpZadkuT-0
+ 
+ 2. I read this page to understand onscroll event listener.
+ onscroll Event: https://www.w3schools.com/Jsref/event_onscroll.asp
+ 
+ 3. I read this page to see example of scroll to top button.
+ How To Create a Scroll To Top Button: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+ 
