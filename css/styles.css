@@ -263,3 +263,10 @@ section.your-active-class .landing__container::after {
         transform: rotate(360deg) translate(-1em) rotate(-360deg);
     }
 }
+
+@media screen and (max-width: 850px) {
+    li a {
+        padding: 0.5em;
+        font-size: 10px;
+    }
+}
