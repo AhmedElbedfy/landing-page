@@ -18,16 +18,91 @@
  *
 */
 
-const allAnchor = document.getElementsByTagName("a"),
+const nav = document.querySelector("nav"),
+    allAnchor = document.getElementsByTagName("a"),
+    upButton = document.getElementById("up-button"),
     sections = document.getElementsByTagName("section");
 
-let userHasScrolled = false;
+let displayNone;
 
 /**
  * End Global Variables
  * Start Helper Functions
  *
 */
+
+
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+
+// build the nav
+
+function buildNav() {
+
+    const ul = document.getElementById("navbar__list"),
+        fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < sections.length; i++) {
+
+        const anchor = document.createElement("a");
+        const anchorList = document.createElement("li");
+
+        anchor.textContent = "Section " + (i + 1);
+        anchor.classList.add("menu__link");
+
+        // Scroll to section on link click
+        anchor.setAttribute("href", "#section" + (i + 1));
+
+        anchorList.appendChild(anchor);
+        fragment.appendChild(anchorList);
+
+    }
+
+    ul.appendChild(fragment);
+
+}
+
+// Hide fixed navigation bar while not scrolling
+
+// show nav if scolling for to secand than hide it
+function ifScrolling() {
+    nav.style.display = "block";
+    displayNone = setTimeout(() => {
+        nav.style.display = "none"
+    }, 2000);
+}
+
+function hideNav() {
+    clearTimeout(displayNone);
+    // function always block on the top 
+    // ifScrolling only work if user scrolling down by 20 from top
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        ifScrolling();
+    } else {
+        nav.style.display = "block";
+    }
+}
+
+// Make Section Collapse Function
+
+function collapseSection() {
+    const h2 = document.getElementsByTagName("h2");
+    const sectionsContent = document.querySelectorAll(".section-content");
+    for (let i = 0; i < h2.length; i++) {
+        const sectionContent = sectionsContent[i];
+        h2[i].addEventListener("click", () => {
+            if (sectionContent.style.display === "block") {
+                sectionContent.style.display = "none"
+            } else {
+                sectionContent.style.display = "block";
+            }
+        })
+    }
+}
 
 // Add class 'active' to section when near top of viewport
 
@@ -36,9 +111,10 @@ function hoverActiveSection() {
 
         const anchor = allAnchor[i],
             section = sections[i],
-            rect = section.getBoundingClientRect();
+            rect = section.getBoundingClientRect(); // get section Coordinates
 
-        if (rect.top < 278 && rect.bottom > 255) {
+        // detect if the coordinates of the section is in viewport
+        if (rect.top < 290 && rect.bottom > 286) {
             section.classList.add("your-active-class");
             anchor.classList.add("anchor-focus");
         } else {
@@ -56,8 +132,6 @@ for (let i = 0; i < allAnchor.length; i++) {
 
 // Up Button Scroll to the top
 
-const upButton = document.getElementById("up-button");
-
 function scrollButton() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         upButton.style.display = "block";
@@ -72,79 +146,6 @@ upButton.addEventListener("click", () => {
 })
 
 /**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
-
-// build the nav
-
-function buildNav() {
-
-    const ul = document.getElementById('navbar__list');
-
-    for (let i = 0; i < sections.length; i++) {
-
-        const anchor = document.createElement('a');
-        const anchorList = document.createElement('li');
-
-        anchor.textContent = "Section " + (i + 1);
-        anchor.classList.add('menu__link');
-
-        // Scroll to section on link click
-        anchor.setAttribute("href", "#section" + (i + 1));
-
-        anchorList.appendChild(anchor);
-
-        ul.appendChild(anchorList);
-
-    }
-
-}
-
-// Hide fixed navigation bar while not scrolling
-
-const nav = document.querySelector("nav");
-let displayNone;
-
-
-function ifScrolling() {
-    nav.style.display = "block";
-    displayNone = setTimeout(() => {
-        nav.style.display = "none"
-    }, 2000);
-}
-
-function hideNav() {
-    clearTimeout(displayNone);
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        ifScrolling();
-    } else {
-        nav.style.display = "block";
-    }
-}
-
-// Collapse Section
-
-function collapseSection() {
-    const h2 = document.getElementsByTagName("h2");
-    const sectionsContent = document.querySelectorAll(".section-content");
-    for (let i = 0; i < h2.length; i++) {
-        const sectionContent = sectionsContent[i];
-        h2[i].addEventListener("click", () => {
-            if (sectionContent.style.display === "block") {
-                sectionContent.style.display = "none"
-            } else {
-                sectionContent.style.display = "block";
-            }
-        })
-    }
-}
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
  * End Main Functions
  * Begin Events
  *
@@ -152,7 +153,7 @@ function collapseSection() {
 
 // Collapse Section
 
-collapseSection()
+collapseSection();
 
 // Build menu 
 
@@ -160,11 +161,8 @@ window.onload = buildNav();
 
 // Detecting Scroll
 
-setTimeout(() => {
-    window.onscroll = () => {
-        userHasScrolled = true;
-        hoverActiveSection();
-        scrollButton();
-        hideNav();
-    }
-}, 0);
+window.onscroll = () => {
+    hoverActiveSection();
+    scrollButton();
+    hideNav();
+}
